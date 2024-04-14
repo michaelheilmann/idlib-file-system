@@ -34,10 +34,4 @@
 #include "idlib_get_file_type.h"
 #include "idlib_set_file_contents.h"
 
-// size_t
-#include <stddef.h>
-
-// bool, true, false
-#include <stdbool.h>
-
 #endif // IDLIB_FILE_SYSTEM_H_INCLUDED
