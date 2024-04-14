@@ -32,7 +32,7 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For open.
   #include <sys/types.h>
@@ -44,7 +44,7 @@
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -55,7 +55,7 @@
     idlib_file_access_mode file_access_mode;
   };
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   struct idlib_file_handle {
     int fd;
@@ -64,7 +64,7 @@
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -154,7 +154,7 @@ idlib_file_handle_create
     return IDLIB_UNKNOWN_ERROR;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // Translate file access and policies for existing and non-existing files.
   int flags = 0;
@@ -219,7 +219,7 @@ idlib_file_handle_create
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -236,6 +236,7 @@ idlib_file_handle_destroy
     idlib_file_handle* file_handle
   )
 {
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
    // Close file handle.
@@ -244,7 +245,7 @@ idlib_file_handle_destroy
     file_handle->hFileHandle = INVALID_HANDLE_VALUE;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // Close file handle.
   if (file_handle->fd > 0) {
@@ -254,7 +255,7 @@ idlib_file_handle_destroy
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -288,7 +289,7 @@ idlib_file_handle_get_file_size
   }
   *file_size = temporary_file_size;
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   if (file_handle->fd < 0) {
     return IDLIB_ARGUMENT_INVALID;
@@ -303,7 +304,7 @@ idlib_file_handle_get_file_size
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -311,24 +312,39 @@ idlib_file_handle_get_file_size
 }
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   HANDLE
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   int
+
 #else
-  #error("operating system not yet supported")
+  
+  #error("operating system not (yet) supported")
+
 #endif
+
 idlib_file_handle_get_backend
   (
     idlib_file_handle* file_handle
   )
 {
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   return file_handle->hFileHandle;
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   return file_handle->fd;
+
 #else
-  #error("operating system not yet supported")
+
+  #error("operating system not (yet) supported")
+
 #endif
+
 }
 
 idlib_file_access_mode

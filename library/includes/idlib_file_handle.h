@@ -60,12 +60,19 @@ idlib_file_handle_get_file_size
   );
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   HANDLE
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   int
+
 #else
-  #error("operating system not yet supported")
+
+  #error("operating system not (yet) supported")
+
 #endif
+
 idlib_file_handle_get_backend
   (
     idlib_file_handle* file_handle
