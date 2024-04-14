@@ -26,7 +26,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
 // errno, ENOTDIR, ENAMETOOLONG, EACCES, ELOOP, ENOMEN, EFAULT, EBADF
 #include <errno.h>
@@ -50,7 +50,9 @@ idlib_get_file_type
   if (!path_name || !file_type) {
     return IDLIB_ARGUMENT_INVALID;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   DWORD attributes = GetFileAttributesA(path_name);
   if (attributes == INVALID_FILE_ATTRIBUTES) {
     DWORD error = GetLastError();
@@ -75,7 +77,9 @@ idlib_get_file_type
       *file_type = idlib_file_type_regular;
     }
   }
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   struct stat t;
   int result = stat(path_name, &t);
   if (0 == result) {
@@ -94,8 +98,12 @@ idlib_get_file_type
     else /*if (errno == ELOOP || errno == ENOMEN || errno == EFAULT || errno == EBADF)*/
       return IDLIB_UNKNOWN_ERROR;
   }
+
 #else
+
   #error("operating system not (yet) supported")
+
 #endif
+
   return IDLIB_SUCCESS;
 }
