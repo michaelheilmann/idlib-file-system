@@ -32,14 +32,14 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For write and ssize_t.
   #include <unistd.h>
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -64,7 +64,9 @@ idlib_set_file_contents
   if (result) {
     return result;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   if (n > MAXDWORD) {
     return IDLIB_ARGUMENT_INVALID;
   }
@@ -80,7 +82,9 @@ idlib_set_file_contents
     }
     bytes_written_dw += bytes_written_now_dw;
   }
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   ssize_t bytes_to_write = n;
   ssize_t bytes_written = 0;
   while (bytes_to_write) {
@@ -93,9 +97,13 @@ idlib_set_file_contents
     bytes_written += written_now;
     bytes_to_write -= written_now;
   }
+
 #else
+
   #error("environment not yet supported")
+
 #endif
+
   idlib_file_handle_destroy(file_handle);
   file_handle = NULL;
   return IDLIB_SUCCESS;
