@@ -30,7 +30,7 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For errno.
   #include <errno.h>
@@ -43,7 +43,7 @@
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -81,8 +81,6 @@ idlib_delete_directory_file
     char const* pathname
   )
 {
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-
   BOOL result = RemoveDirectory(pathname);
   if (!result) {
     DWORD error = GetLastError();
@@ -95,24 +93,6 @@ idlib_delete_directory_file
     }
  }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
-
-  int result = rmdir(pathname);
-  if (-1 == result) {
-    if (ENOTEMPTY == errno) {
-      return IDLIB_DIRECTORY_NOT_EMPTY;
-    } else if (EACCES == errno || EFAULT == errno || EINVAL == errno || ENOTDIR == errno || EROFS == errno || EPERM == errno) {
-      return IDLIB_FILE_NOT_FOUND;
-    } else {
-      return IDLIB_UNKNOWN_ERROR;
-    }
-  }
-
-#else
-
-  #error("operating system not yet supported")
-
-#endif
  return IDLIB_SUCCESS;
 }
 
@@ -122,8 +102,6 @@ idlib_delete_regular_file
     char const* pathname
   )
 {
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-
   BOOL result = DeleteFile(pathname);
   if (!result) {
     DWORD error = GetLastError();
@@ -134,23 +112,10 @@ idlib_delete_regular_file
     }
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
-
-  int result = remove(pathname);
-  if (-1 == result) {
-    return IDLIB_UNKNOWN_ERROR;
-  }
-
-#else
-
-  #error("operating system not yet supported")
-
-#endif
-
   return IDLIB_SUCCESS;
 }
 
-#endif
+#endif // IDLIB_OPERATING_SYSTEM_WINDOWS
 
 int
 idlib_delete_file
@@ -161,6 +126,7 @@ idlib_delete_file
   if (!path_name) {
     return IDLIB_ARGUMENT_INVALID;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
   idlib_file_type file_type;
@@ -175,7 +141,8 @@ idlib_delete_file
     return idlib_delete_regular_file(path_name);
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   if (!strcmp(path_name, "")) {
     // Because ENOENT is not only returned when the file is not found but also when path_name is empty.
     return IDLIB_ARGUMENT_INVALID;
