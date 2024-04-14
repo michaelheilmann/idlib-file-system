@@ -38,6 +38,9 @@
   // For remove.
   #include <stdio.h>
 
+  // For strcmp.
+  #include <string.h>
+
 #else
 
   #error("operating system not yet supported")
@@ -155,14 +158,17 @@ idlib_delete_file
     char const* path_name
   )
 {
+  if (!path_name) {
+    return IDLIB_ARGUMENT_INVALID;
+  }
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-  
+
   idlib_file_type file_type;
   int result = idlib_get_file_type(path_name, &file_type);
   if (result) {
     return result;
   }
-  
+
   if (file_type == idlib_file_type_directory) {
     return idlib_delete_directory_file(path_name);
   } else {
@@ -170,9 +176,16 @@ idlib_delete_file
   }
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
-  
+  if (!strcmp(path_name, "")) {
+    // Because ENOENT is not only returned when the file is not found but also when path_name is empty.
+    return IDLIB_ARGUMENT_INVALID;
+  }
   if (-1 == remove(path_name)) {
-    return IDLIB_UNKNOWN_ERROR;
+    if (ENOENT == errno) {
+      return IDLIB_FILE_NOT_FOUND;
+    } else {
+      return IDLIB_UNKNOWN_ERROR;
+    }
   }
 
 #else
