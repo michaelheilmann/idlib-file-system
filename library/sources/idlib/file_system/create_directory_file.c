@@ -19,53 +19,23 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_HANDLE_H_INCLUDED)
-#define IDLIB_FILE_HANDLE_H_INCLUDED
+#include "idlib/file_system/create_directory_file.h"
 
-#include "idlib_file_system.h"
-
-// size_t
-#include <stddef.h>
+#include "idlib/file_system/configure.h"
+#include "idlib/file_system/errors.h"
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
-#endif
-
-typedef struct idlib_file_handle idlib_file_handle;
-
-int
-idlib_file_handle_create
-  (
-    idlib_file_handle** file_handle,
-    char const* pathname,
-    idlib_file_access_mode file_access_mode,
-    idlib_existing_file_policy existing_file_policy,
-    idlib_non_existing_file_policy non_existing_file_policy
-  );
-
-int
-idlib_file_handle_destroy
-  (
-    idlib_file_handle* file_handle
-  );
-
-int
-idlib_file_handle_get_file_size
-  (
-    idlib_file_handle* file_handle,
-    size_t* file_size
-  );
-
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-
-  HANDLE
+  #define WIN32_LEAN_AND_MEAN
+  #include <Windows.h>
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
-  int
+  // For errno.
+  #include <errno.h>
+
+  // For mkdir.
+  #include <sys/stat.h>
 
 #else
 
@@ -73,15 +43,32 @@ idlib_file_handle_get_file_size
 
 #endif
 
-idlib_file_handle_get_backend
+int
+idlib_create_directory_file
   (
-    idlib_file_handle* file_handle
-  );
+    char const* path_name
+  )
+{
 
-idlib_file_access_mode
-idlib_file_handle_get_file_access_mode
-  (
-    idlib_file_handle* file_handle
-  );
+#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
-#endif // IDLIB_FILE_HANDLE_H_INCLUDED
+  BOOL result = CreateDirectory(path_name, NULL);
+  if (!result) {
+    return IDLIB_UNKNOWN_ERROR;
+  }
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
+  int result = mkdir(path_name, 0755);
+  if (-1 == result) {
+    return IDLIB_UNKNOWN_ERROR;
+  }
+
+#else
+
+  #error("operating system not (yet) supported")
+
+#endif
+
+  return IDLIB_SUCCESS;
+}

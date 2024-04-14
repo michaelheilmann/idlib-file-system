@@ -19,34 +19,53 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_ENUMERATE_FILES_H_INCLUDED)
-#define IDLIB_ENUMERATE_FILES_H_INCLUDED
+#if !defined(IDLIB_FILE_MAPPING_H_INCLUDED)
+#define IDLIB_FILE_MAPPING_H_INCLUDED
 
-#include "configure.h"
+#include "idlib/file_system/file_handle.h"
 
-// bool
-#include <stdbool.h>
+/* Helper to store information related to a file mapping. */
+typedef struct idlib_file_mapping {
+  idlib_file_handle* file_handle;
+  
+#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
-// size_t
-#include <stddef.h>
+  HANDLE hFileMapping;
 
-typedef bool (idlib_enumerate_files_callback)(void *context, void const* bytes, size_t number_of_bytes);
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
-/**
- * @brief Enumerate the files in a directory file.
- * @param path_name The pathname of the directory file.
- * @param callback The callback to invoke.
- * @remarks The file denoted by @a path_name must exist and must be a directory file.
- * @return #IDLIB_SUCCESS on success. A non-zero value on failure.
- */
+  /* Intentionally empty. */
+
+#else
+
+  #error("operating system not (yet) supported")
+
+#endif
+
+  void* bytes;
+  size_t number_of_bytes;
+
+} idlib_file_mapping;
+
 int
-idlib_enumerate_files
+idlib_file_mapping_initialize_write
   (
+    idlib_file_mapping* file_mapping,
     char const* path_name,
-    void* context,
-    idlib_enumerate_files_callback* callback,
-    bool regular_files,
-    bool directory_files
+    size_t number_of_bytes
   );
 
-#endif // IDLIB_ENUMERATE_FILES_H_INCLUDED
+int
+idlib_file_mapping_initialize_read
+  (
+    idlib_file_mapping* file_mapping,
+    char const* path_name
+  );
+
+int
+idlib_file_mapping_uninitialize
+  (
+    idlib_file_mapping* file_mapping
+  );
+
+#endif // IDLIB_FILE_MAPPING_H_INCLUDED

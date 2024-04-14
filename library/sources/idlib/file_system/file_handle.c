@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_file_handle.h"
+#include "idlib/file_system/file_handle.h"
 
 // malloc, free
 #include <malloc.h>

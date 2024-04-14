@@ -19,19 +19,4 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_SYSTEM_H_INCLUDED)
-#define IDLIB_FILE_SYSTEM_H_INCLUDED
-
-#include "configure.h"
-#include "idlib_create_directory_file.h"
-#include "idlib_delete_file.h"
-#include "idlib_enumerate_files.h"
-#include "idlib_errors.h"
-#include "idlib_existing_file_policy.h"
-#include "idlib_non_existing_file_policy.h"
-#include "idlib_file_access_mode.h"
-#include "idlib_get_file_contents.h"
-#include "idlib_get_file_type.h"
-#include "idlib_set_file_contents.h"
-
-#endif // IDLIB_FILE_SYSTEM_H_INCLUDED
+#include "idlib/file_system/existing_file_policy.h"

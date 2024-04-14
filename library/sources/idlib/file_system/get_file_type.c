@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_get_file_type.h"
+#include "idlib/file_system/get_file_type.h"
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 

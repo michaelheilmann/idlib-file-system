@@ -19,9 +19,9 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_enumerate_files.h"
+#include "idlib/file_system/enumerate_files.h"
 
-#include "idlib_errors.h"
+#include "idlib/file_system/errors.h"
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 	

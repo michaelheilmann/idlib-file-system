@@ -19,22 +19,33 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_MAPPING_H_INCLUDED)
-#define IDLIB_FILE_MAPPING_H_INCLUDED
+#include "idlib/file_system.h"
 
-#include "idlib_file_handle.h"
+#include "idlib/file_system/file_handle.h"
 
-/* Helper to store information related to a file mapping. */
-typedef struct idlib_file_mapping {
-  idlib_file_handle* file_handle;
-  
+// malloc, free
+#include <malloc.h>
+
+// SIZE_MAX
+#include <stdlib.h>
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
-  HANDLE hFileMapping;
+  #define WIN32_LEAN_AND_MEAN
+  #include <Windows.h>
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
-  /* Intentionally empty. */
+  // For errno.
+  #include <errno.h>
+
+  // For open.
+  #include <sys/types.h>
+  #include <sys/stat.h>
+  #include <fcntl.h>
+
+  // For close.
+  #include <unistd.h>
 
 #else
 
@@ -42,30 +53,4 @@ typedef struct idlib_file_mapping {
 
 #endif
 
-  void* bytes;
-  size_t number_of_bytes;
 
-} idlib_file_mapping;
-
-int
-idlib_file_mapping_initialize_write
-  (
-    idlib_file_mapping* file_mapping,
-    char const* path_name,
-    size_t number_of_bytes
-  );
-
-int
-idlib_file_mapping_initialize_read
-  (
-    idlib_file_mapping* file_mapping,
-    char const* path_name
-  );
-
-int
-idlib_file_mapping_uninitialize
-  (
-    idlib_file_mapping* file_mapping
-  );
-
-#endif // IDLIB_FILE_MAPPING_H_INCLUDED

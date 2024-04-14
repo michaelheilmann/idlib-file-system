@@ -19,11 +19,11 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_delete_file.h"
+#include "idlib/file_system/delete_file.h"
 
-#include "configure.h"
-#include "idlib_get_file_type.h"
-#include "idlib_errors.h"
+#include "idlib/file_system/configure.h"
+#include "idlib/file_system/errors.h"
+#include "idlib/file_system/get_file_type.h"
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 

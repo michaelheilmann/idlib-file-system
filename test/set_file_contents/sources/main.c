@@ -19,7 +19,7 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_file_system.h"
+#include "idlib/file_system.h"
 
 #include "idlib_test_buffer.h"
 

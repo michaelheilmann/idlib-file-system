@@ -19,17 +19,4 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_GET_FILE_TYPE_H_INCLUDED)
-#define IDLIB_GET_FILE_TYPE_H_INCLUDED
-
-#include "idlib_file_type.h"
-#include "idlib_errors.h"
-
-int
-idlib_get_file_type
-  (
-    char const *path_name,
-    idlib_file_type* file_type
-  );
-
-#endif // IDLIB_GET_FILE_TYPE_H_INCLUDED
+#include "idlib/file_system/file_access_mode.h"

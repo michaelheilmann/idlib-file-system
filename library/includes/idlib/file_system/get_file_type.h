@@ -19,38 +19,17 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_file_system.h"
+#if !defined(IDLIB_GET_FILE_TYPE_H_INCLUDED)
+#define IDLIB_GET_FILE_TYPE_H_INCLUDED
 
-#include "idlib_file_handle.h"
+#include "idlib/file_system/file_type.h"
+#include "idlib/file_system/errors.h"
 
-// malloc, free
-#include <malloc.h>
+int
+idlib_get_file_type
+  (
+    char const *path_name,
+    idlib_file_type* file_type
+  );
 
-// SIZE_MAX
-#include <stdlib.h>
-
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-
-  #define WIN32_LEAN_AND_MEAN
-  #include <Windows.h>
-
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
-
-  // For errno.
-  #include <errno.h>
-
-  // For open.
-  #include <sys/types.h>
-  #include <sys/stat.h>
-  #include <fcntl.h>
-
-  // For close.
-  #include <unistd.h>
-
-#else
-
-  #error("operating system not (yet) supported")
-
-#endif
-
-
+#endif // IDLIB_GET_FILE_TYPE_H_INCLUDED

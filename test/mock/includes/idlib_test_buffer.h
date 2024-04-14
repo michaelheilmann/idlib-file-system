@@ -22,7 +22,7 @@
 #if !defined(IDLIB_TEST_UTILITIES_BUFFER_H_INCLUDED)
 #define IDLIB_TEST_UTILITIES_BUFFER_H_INCLUDED
 
-#include "idlib_file_system.h"
+#include "idlib/file_system.h"
 
 typedef struct idlib_test_utilities_buffer {
   int result;

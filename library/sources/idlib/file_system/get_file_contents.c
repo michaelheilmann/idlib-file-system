@@ -19,11 +19,11 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_get_file_contents.h"
+#include "idlib/file_system/get_file_contents.h"
 
-#include "idlib_file_handle.h"
+#include "idlib/file_system/file_handle.h"
 
-#include "idlib_file_mapping.h"
+#include "idlib/file_system/file_mapping.h"
 
 // malloc, free
 #include <malloc.h>

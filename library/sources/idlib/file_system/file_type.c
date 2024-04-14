@@ -19,19 +19,4 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_TYPE_H_INCLUDED)
-#define IDLIB_FILE_TYPE_H_INCLUDED
-
-#include "configure.h"
-
-typedef enum idlib_file_type {
-
-  idlib_file_type_unknown,
-
-  idlib_file_type_directory,
-
-  idlib_file_type_regular,
-
-} idlib_file_type;
-
-#endif // IDLIB_FILE_TYPE_H_INCLUDED
+#include "idlib/file_system/file_type.h"

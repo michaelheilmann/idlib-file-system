@@ -19,10 +19,10 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib_set_file_contents.h"
+#include "idlib/file_system/set_file_contents.h"
 
-#include "idlib_file_mapping.h"
-#include "idlib_errors.h"
+#include "idlib/file_system/file_mapping.h"
+#include "idlib/file_system/errors.h"
 
 // For memcpy.
 #include <string.h>

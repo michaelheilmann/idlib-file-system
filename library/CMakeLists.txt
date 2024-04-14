@@ -58,51 +58,51 @@ else()
   message(FATAL_ERROR "operating system detection not executed")
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/includes/configure.h.in ${CMAKE_CURRENT_BINARY_DIR}/includes/configure.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/configure.h.in ${CMAKE_CURRENT_BINARY_DIR}/includes/idlib/file_system/configure.h)
 
-list(APPEND ${name}.configuration_files "${CMAKE_CURRENT_BINARY_DIR}/includes/configure.h")
+list(APPEND ${name}.configuration_files "${CMAKE_CURRENT_BINARY_DIR}/includes/idlib/file_system/configure.h")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_file_system.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_file_system.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_errors.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_errors.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/errors.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/errors.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_file_handle.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_file_handle.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/file_handle.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/file_handle.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_file_mapping.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_file_mapping.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/file_mapping.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/file_mapping.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_get_file_contents.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_get_file_contents.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/get_file_contents.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/get_file_contents.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_set_file_contents.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_set_file_contents.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/set_file_contents.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/set_file_contents.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_existing_file_policy.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_existing_file_policy.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/existing_file_policy.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/existing_file_policy.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_non_existing_file_policy.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_non_existing_file_policy.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/non_existing_file_policy.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/non_existing_file_policy.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_file_access_mode.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_file_access_mode.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/file_access_mode.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/file_access_mode.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_file_type.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_file_type.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/file_type.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/file_type.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_get_file_type.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_get_file_type.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/get_file_type.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/get_file_type.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_delete_file.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_delete_file.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/delete_file.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/delete_file.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_create_directory_file.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_create_directory_file.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/create_directory_file.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/create_directory_file.c")
 
-list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib_enumerate_files.h")
-list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib_enumerate_files.c")
+list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/file_system/enumerate_files.h")
+list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/enumerate_files.c")
 
 end_library()
 
