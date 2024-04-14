@@ -12,7 +12,7 @@ Follow these steps to integrate this library into your CMake-based project:
 - Download/checkout *IdLib File System* into that folder such that the contents of the directory in which this `README.md` file is located in directly resides under `3rdparty/idlib-file-system`.
 - Add to your project the `3rdparty/idlib-file-system/CMakeLists.txt` using `add_subdirectory`.
 - Link your target `YourTarget` to *IdLib File System* using `target_link_libraries(YourTarget idlib-file-system)`.
-- In your C/C++ code, you now can include now the functionality of *IdLib File System* by adding the preprocessor include directive `#include "idlib-file-system.h"`.
+- In your C/C++ code, you now can include now the functionality of *IdLib File System* by adding the preprocessor include directive `#include "idlib/file_system.h"`.
 
 ## Building
 For development (or if you really want to use prebuilt binaries), you can do standalone builds of *IdLib File System*.
