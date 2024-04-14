@@ -29,11 +29,17 @@ typedef struct idlib_file_mapping {
   idlib_file_handle* file_handle;
   
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   HANDLE hFileMapping;
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   /* Intentionally empty. */
+
 #else
-  #error("operating system not yet supported")
+
+  #error("operating system not (yet) supported")
+
 #endif
 
   void* bytes;

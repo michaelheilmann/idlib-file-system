@@ -21,7 +21,7 @@
 
 #include "idlib_file_mapping.h"
 
-#if IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#if IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
 // For mmap.
 #include <sys/mman.h>
@@ -44,7 +44,9 @@ idlib_file_mapping_initialize_write
   int result;
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   file_mapping->hFileMapping = NULL;
+
 #endif
 
   // Create the file handle.
@@ -67,7 +69,9 @@ idlib_file_mapping_initialize_write
     // Return the result.
     return IDLIB_SUCCESS;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   // Create file mapping.
   file_mapping->hFileMapping = CreateFileMapping(idlib_file_handle_get_backend(file_mapping->file_handle), 0, PAGE_READWRITE, 0, number_of_bytes, NULL);
   if (NULL == file_mapping->hFileMapping) {
@@ -91,7 +95,9 @@ idlib_file_mapping_initialize_write
     // Return the result.
     return IDLIB_UNKNOWN_ERROR;
   }
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   // Extend the file to the size of the contents if necessary.
   if (-1 == lseek(idlib_file_handle_get_backend(file_mapping->file_handle), number_of_bytes - 1, SEEK_SET)) {
     // Destroy file handle.
@@ -116,9 +122,13 @@ idlib_file_mapping_initialize_write
     // Return failure.
     return IDLIB_UNKNOWN_ERROR;
   }
+
 #else
-  #error("environment not yet supported")
+
+  #error("operating system not (yet) supported")
+
 #endif
+
   return IDLIB_SUCCESS;
 }
 
@@ -132,8 +142,11 @@ idlib_file_mapping_initialize_read
   int result;
 
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   file_mapping->hFileMapping = NULL;
+
 #endif
+
   file_mapping->file_handle = NULL;
 
   // Create the file handle.
@@ -162,7 +175,9 @@ idlib_file_mapping_initialize_read
     // Return success.
     return IDLIB_SUCCESS;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   // Create file mapping.
   file_mapping->hFileMapping = CreateFileMapping(idlib_file_handle_get_backend(file_mapping->file_handle), 0, PAGE_READONLY, 0, file_mapping->number_of_bytes, NULL);
   if (NULL == file_mapping->hFileMapping) {
@@ -187,7 +202,9 @@ idlib_file_mapping_initialize_read
     // Return failure.
     return IDLIB_UNKNOWN_ERROR;
   }
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   // Open the mapping.
   file_mapping->bytes = mmap(NULL, file_mapping->number_of_bytes, PROT_READ, MAP_PRIVATE, idlib_file_handle_get_backend(file_mapping->file_handle), 0);
   if (MAP_FAILED == file_mapping->bytes) {
@@ -198,9 +215,13 @@ idlib_file_mapping_initialize_read
     // Return failure.
     return IDLIB_UNKNOWN_ERROR;
   }
+
 #else
+
   #error("environment not yet supported")
+
 #endif
+
   return IDLIB_SUCCESS;
 }
 
@@ -210,7 +231,9 @@ idlib_file_mapping_uninitialize
     idlib_file_mapping* file_mapping
   )
 {
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
   // Close view of file.
   if (&DUMMY != file_mapping->bytes) {
     UnmapViewOfFile(file_mapping->bytes);
@@ -221,7 +244,9 @@ idlib_file_mapping_uninitialize
     CloseHandle(file_mapping->hFileMapping);
     file_mapping->hFileMapping = NULL;
   }
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
   // Synchronize if we have a file handle (that is, when the number of Bytes is greater than 0) and if we are in write mode.
   if (file_mapping->file_handle) {
     if (idlib_file_access_mode_write == (idlib_file_access_mode_write & idlib_file_handle_get_file_access_mode(file_mapping->file_handle))) {
@@ -232,13 +257,18 @@ idlib_file_mapping_uninitialize
   if (&DUMMY != file_mapping->bytes) {
     munmap(file_mapping->bytes, file_mapping->number_of_bytes);
   }
+
 #else
+
   #error("environment not yet supported")
+
 #endif
+
   // Close file handle.
   if (file_mapping->file_handle) {
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
   }
+
   return IDLIB_SUCCESS;
 }
