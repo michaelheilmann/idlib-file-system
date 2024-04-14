@@ -22,51 +22,18 @@
 #if !defined(IDLIB_FILE_SYSTEM_ERRORS_H_INCLUDED)
 #define IDLIB_FILE_SYSTEM_ERRORS_H_INCLUDED
 
-/** 
- * @brief Symbolic constant indicating success.
- */
-#define IDLIB_SUCCESS (0)
-
-/**
- * @brief Symbolic constant indicating an unknown error.
- * The error was raised, however, the reason is not known.
- */
-#define IDLIB_UNKNOWN_ERROR (1)
+#include "idlib/process.h"
 
 /**
  * @brief Symbolic constant indicating an error.
  * The error was raised because a file was not found.
  */
-#define IDLIB_FILE_NOT_FOUND (2)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was aborted.
- */
-#define IDLIB_ABORTED (3)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because an argument was not valid.
- */
-#define IDLIB_ARGUMENT_INVALID (4)
-
-/** 
- * @brief Symbolic constant indicating an error.
- * The error was raised because an allocation failed.
- */
-#define IDLIB_ALLOCATION_FAILED (5)
-
-/** 
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was too big.
- */
-#define IDLIB_TOO_BIG (6)
+#define IDLIB_FILE_NOT_FOUND (20)
 
 /**
  * @brief Symbolic constant indicating an error.
  * The error was raised because a directory was not empty.
  */
-#define IDLIB_DIRECTORY_NOT_EMPTY (7)
+#define IDLIB_DIRECTORY_NOT_EMPTY (21)
 
 #endif // IDLIB_FILE_SYSTEM_ERRORS_H_INCLUDED

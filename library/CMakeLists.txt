@@ -21,7 +21,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-include(${idlib-file-system-cmake-files-dir}/all.cmake)
+include(${idlib-file-system.idlib-process-directory}/cmake/all.cmake)
 
 set(name idlib-file-system)
 begin_library()
@@ -105,6 +105,8 @@ list(APPEND ${name}.header_files "${CMAKE_CURRENT_SOURCE_DIR}/includes/idlib/fil
 list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file_system/enumerate_files.c")
 
 end_library()
+
+target_link_libraries(${name} idlib-process)
 
 source_group(TREE ${CMAKE_CURRENT_BINARY_DIR} FILES ${${name}.configuration_files})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${${name}.header_files})

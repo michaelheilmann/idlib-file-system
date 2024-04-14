@@ -1,5 +1,5 @@
 #
-# IdLib File System
+# IdLib Process
 # Copyright (C) 2018-2024 Michael Heilmann. All rights reserved.
 #
 # This software is provided 'as-is', without any express or implied
@@ -21,15 +21,10 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-project(idlib-file-system LANGUAGES C)
+project(idlib-process LANGUAGES C)
 
-set(idlib-file-system.idlib-process-directory "${CMAKE_CURRENT_SOURCE_DIR}/external/idlib-process-1.0")
+set(idlib-process-cmake-files-dir "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-add_subdirectory(${idlib-file-system.idlib-process-directory})
 add_subdirectory(library)
 
 enable_testing()
-add_subdirectory(test/mock)
-add_subdirectory(test/get_file_type)
-add_subdirectory(test/get_file_contents)
-add_subdirectory(test/set_file_contents)

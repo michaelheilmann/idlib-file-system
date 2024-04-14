@@ -1,5 +1,5 @@
 #
-# IdLib File System
+# IdLib Process
 # Copyright (C) 2018-2024 Michael Heilmann. All rights reserved.
 #
 # This software is provided 'as-is', without any express or implied
@@ -19,19 +19,17 @@
 # 3. This notice may not be removed or altered from any source distribution.
 #
 
-# Macro to define an enumeration of languages.
-#
-# The enumeration constants ${target}.language_(unknown|c|cpp|masm) are defined.
-# Each constant is a string of an unique name identifying a language.
-#
+# Macro to detect a multi target generator is used.
+# Set ${target}.is_multi_target_generator to "YES" (a multi target generator is used) or "NO" (a single target generator is used).
 # @param target The target.
-macro(define_languages target)
-  # Unknown language.
-  set(${target}.language_unknown "<unknown language>")
-  # The "C" language.
-  set(${target}.language_c "C")
-  # The "C++" language.
-  set(${target}.language_cpp "CPP")
-  # The "MASM" language.
-  set(${target}.language_masm "MASM")
-endmacro()
+macro(detect_multi_target_generator target)
+  if (NOT DEFINED ${target}.compiler_c)
+    message(FATAL_ERROR "please execute detect_compiler before detect_multi_target_generator")
+  endif()
+  if (${target}.compiler_c STREQUAL ${target}.compiler_c_msvc)
+    set(${target}.is_multi_target_generator YES)
+  else()
+    set(${target}.is_multi_target_generator NO)
+  endif()
+  message(STATUS " - ${target} multi-target generator: ${${target}.is_multi_target_generator}")
+endmacro(detect_multi_target_generator)
