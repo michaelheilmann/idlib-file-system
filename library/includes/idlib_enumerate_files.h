@@ -19,25 +19,34 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_SYSTEM_H_INCLUDED)
-#define IDLIB_FILE_SYSTEM_H_INCLUDED
+#if !defined(IDLIB_ENUMERATE_FILES_H_INCLUDED)
+#define IDLIB_ENUMERATE_FILES_H_INCLUDED
 
 #include "configure.h"
-#include "idlib_create_directory_file.h"
-#include "idlib_delete_file.h"
-#include "idlib_enumerate_files.h"
-#include "idlib_errors.h"
-#include "idlib_existing_file_policy.h"
-#include "idlib_non_existing_file_policy.h"
-#include "idlib_file_access_mode.h"
-#include "idlib_get_file_contents.h"
-#include "idlib_get_file_type.h"
-#include "idlib_set_file_contents.h"
+
+// bool
+#include <stdbool.h>
 
 // size_t
 #include <stddef.h>
 
-// bool, true, false
-#include <stdbool.h>
+typedef bool (idlib_enumerate_files_callback)(void *context, void const* bytes, size_t number_of_bytes);
 
-#endif // IDLIB_FILE_SYSTEM_H_INCLUDED
+/**
+ * @brief Enumerate the files in a directory file.
+ * @param path_name The pathname of the directory file.
+ * @param callback The callback to invoke.
+ * @remarks The file denoted by @a path_name must exist and must be a directory file.
+ * @return #IDLIB_SUCCESS on success. A non-zero value on failure.
+ */
+int
+idlib_enumerate_files
+  (
+    char const* path_name,
+    void* context,
+    idlib_enumerate_files_callback* callback,
+    bool regular_files,
+    bool directory_files
+  );
+
+#endif // IDLIB_ENUMERATE_FILES_H_INCLUDED
