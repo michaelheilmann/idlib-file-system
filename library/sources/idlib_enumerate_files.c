@@ -27,7 +27,7 @@
 	
 	#define IDLIB_DIRECTORY_SEPARATOR "\\"
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
 	#define IDLIB_DIRECTORY_SEPARATOR "/"
 
@@ -44,7 +44,7 @@
 	#include <strsafe.h>
 	#include <tchar.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 	
 	#include <sys/types.h>
 	#include <dirent.h>
@@ -70,7 +70,9 @@ idlib_enumerate_files
   if (!path_name || !callback) {
     return IDLIB_ARGUMENT_INVALID;
   }
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
 	WIN32_FIND_DATA ffd;
 	TCHAR szDir[MAX_PATH];
 	StringCchCopy(szDir, MAX_PATH, path_name);
@@ -94,7 +96,9 @@ idlib_enumerate_files
 	} while (FindNextFile(hFind, &ffd) != 0);
 	FindClose(hFind);
 	hFind = INVALID_HANDLE_VALUE;
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+
 	DIR* dir;
 	struct dirent* ent;
 	dir = opendir(path_name);
@@ -148,9 +152,13 @@ idlib_enumerate_files
 	}
 	closedir(dir);
 	dir = NULL;
+
 #else
+
 	#error("operating system not (yet) supported")
+
 #endif
+
   return IDLIB_SUCCESS;
 }
 
