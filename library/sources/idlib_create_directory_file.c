@@ -29,7 +29,7 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For errno.
   #include <errno.h>
@@ -39,7 +39,7 @@
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
@@ -49,6 +49,7 @@ idlib_create_directory_file
     char const* path_name
   )
 {
+
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
   BOOL result = CreateDirectory(path_name, NULL);
@@ -56,7 +57,7 @@ idlib_create_directory_file
     return IDLIB_UNKNOWN_ERROR;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   int result = mkdir(path_name, 0755);
   if (-1 == result) {
@@ -65,8 +66,9 @@ idlib_create_directory_file
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
+
   return IDLIB_SUCCESS;
 }
