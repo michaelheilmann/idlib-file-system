@@ -34,7 +34,7 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For errno.
   #include <errno.h>
@@ -49,7 +49,7 @@
 
 #else
 
-  #error("operating system not yet supported")
+  #error("operating system not (yet) supported")
 
 #endif
 
