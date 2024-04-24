@@ -80,7 +80,7 @@ idlib_enumerate_files
 	HANDLE hFind = INVALID_HANDLE_VALUE;
 	hFind = FindFirstFile(szDir, &ffd);
 	if (INVALID_HANDLE_VALUE == hFind) {
-		return IDLIB_UNKNOWN_ERROR;
+		return IDLIB_ENVIRONMENT_FAILED;
 	}
 	do {
 		if (!strcmp(ffd.cFileName, ".") || !strcmp(ffd.cFileName, "..")) {
@@ -103,7 +103,7 @@ idlib_enumerate_files
 	struct dirent* ent;
 	dir = opendir(path_name);
 	if (!dir) {
-		return IDLIB_UNKNOWN_ERROR;
+		return IDLIB_ENVIRONMENT_FAILED;
 	}
 	while ((ent = readdir(dir)) != NULL) {
 	#if 0

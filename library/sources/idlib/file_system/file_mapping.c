@@ -80,7 +80,7 @@ idlib_file_mapping_initialize_write
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return the result.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   // Create view of file mapping.
   file_mapping->bytes = (char*)MapViewOfFile(file_mapping->hFileMapping, FILE_MAP_WRITE | FILE_MAP_READ, 0, 0, 0);
@@ -93,7 +93,7 @@ idlib_file_mapping_initialize_write
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return the result.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
@@ -104,14 +104,14 @@ idlib_file_mapping_initialize_write
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   if (-1 == write(idlib_file_handle_get_backend(file_mapping->file_handle), "", 1)) {
     // Destroy file handle.
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   // Create the mapping.
   file_mapping->bytes = mmap(0, file_mapping->number_of_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, idlib_file_handle_get_backend(file_mapping->file_handle), 0);
@@ -120,7 +120,7 @@ idlib_file_mapping_initialize_write
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #else
@@ -187,7 +187,7 @@ idlib_file_mapping_initialize_read
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   // Create view of file mapping.
   file_mapping->bytes = (char*)MapViewOfFile(file_mapping->hFileMapping, FILE_MAP_READ, 0, 0, 0);
@@ -200,7 +200,7 @@ idlib_file_mapping_initialize_read
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
@@ -213,7 +213,7 @@ idlib_file_mapping_initialize_read
     idlib_file_handle_destroy(file_mapping->file_handle);
     file_mapping->file_handle = NULL;
     // Return failure.
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #else

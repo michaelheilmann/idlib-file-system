@@ -84,7 +84,7 @@ idlib_get_file_contents
     if (!result) {
       idlib_file_handle_destroy(file_handle);
       file_handle = NULL;
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
     // eof
     if (received == 0) {
@@ -110,7 +110,7 @@ idlib_get_file_contents
       errno = 0;
       idlib_file_handle_destroy(file_handle);
       file_handle = NULL;
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
     // eof
     if (0 == received) {

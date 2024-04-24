@@ -78,7 +78,7 @@ idlib_set_file_contents
     if (!WriteFile(idlib_file_handle_get_backend(file_handle), ((char const*)p) + bytes_written_dw, bytes_to_write_dw, &bytes_written_now_dw, NULL)) {
       idlib_file_handle_destroy(file_handle);
       file_handle = NULL;
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
     bytes_written_dw += bytes_written_now_dw;
   }
@@ -92,7 +92,7 @@ idlib_set_file_contents
     if (-1 == written_now) {
       idlib_file_handle_destroy(file_handle);
       file_handle = NULL;
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
     bytes_written += written_now;
     bytes_to_write -= written_now;

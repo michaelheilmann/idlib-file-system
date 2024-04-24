@@ -137,11 +137,11 @@ test
   }
   if (context.buffer.size != n) {
     Context_uninitialize(&context);
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   if (0 != memcmp(context.buffer.elements, p, n)) {
     Context_uninitialize(&context);
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   Context_uninitialize(&context);
   return IDLIB_SUCCESS;

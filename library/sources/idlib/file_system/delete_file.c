@@ -89,7 +89,7 @@ idlib_delete_directory_file
     } else if (ERROR_ACCESS_DENIED == error || ERROR_FILE_NOT_FOUND == error) {
       return IDLIB_FILE_NOT_FOUND;
     } else {
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
  }
 
@@ -108,7 +108,7 @@ idlib_delete_regular_file
     if (ERROR_ACCESS_DENIED == error || ERROR_FILE_NOT_FOUND == error) {
       return IDLIB_FILE_NOT_FOUND;
     } else {
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
   }
 
@@ -151,7 +151,7 @@ idlib_delete_file
     if (ENOENT == errno) {
       return IDLIB_FILE_NOT_FOUND;
     } else {
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
   }
 

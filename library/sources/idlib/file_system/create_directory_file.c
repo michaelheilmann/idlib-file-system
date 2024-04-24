@@ -54,14 +54,14 @@ idlib_create_directory_file
 
   BOOL result = CreateDirectory(path_name, NULL);
   if (!result) {
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   int result = mkdir(path_name, 0755);
   if (-1 == result) {
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #else

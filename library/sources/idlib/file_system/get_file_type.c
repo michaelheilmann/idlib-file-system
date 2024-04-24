@@ -68,7 +68,7 @@ idlib_get_file_type
       return IDLIB_ARGUMENT_INVALID;
     } else {
       // The case was not properly handled.
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
     }
   } else {
     if (FILE_ATTRIBUTE_DIRECTORY == (FILE_ATTRIBUTE_DIRECTORY & attributes)) {
@@ -96,7 +96,7 @@ idlib_get_file_type
     else if (errno == EOVERFLOW) // EOVERFLOW indicates that some file exists but is not accessible due to technical constraints.
       return IDLIB_FILE_NOT_FOUND;
     else /*if (errno == ELOOP || errno == ENOMEN || errno == EFAULT || errno == EBADF)*/
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #else

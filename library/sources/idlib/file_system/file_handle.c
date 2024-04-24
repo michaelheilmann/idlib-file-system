@@ -151,7 +151,7 @@ idlib_file_handle_create
     free(temporary_file_handle);
     temporary_file_handle = NULL;
     /*fprintf(stderr, "%s:%d: unable to open file '%s'\n", __FILE__, __LINE__, path_name);*/
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
@@ -214,7 +214,7 @@ idlib_file_handle_create
   if (temporary_file_handle->fd < 0) {
     free(temporary_file_handle);
     /*fprintf(stderr, "%s:%d: unable to open file '%s'\n", __FILE__, __LINE__, path_name);*/
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
 
 #else
@@ -298,7 +298,7 @@ idlib_file_handle_get_file_size
   struct stat stat_buf;
   int status = fstat(file_handle->fd, &stat_buf);
   if (status < 0 || stat_buf.st_size < 0 || stat_buf.st_size > SIZE_MAX) {
-    return IDLIB_UNKNOWN_ERROR;
+    return IDLIB_ENVIRONMENT_FAILED;
   }
   *file_size = (size_t)stat_buf.st_size;
 

@@ -23,7 +23,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(idlib-file-system LANGUAGES C)
 
-set(idlib-file-system.idlib-process-directory "${CMAKE_CURRENT_SOURCE_DIR}/external/idlib-process-1.0")
+set(idlib-file-system.idlib-process-directory "${CMAKE_CURRENT_SOURCE_DIR}/external/idlib-process-1.1")
 
 add_subdirectory(${idlib-file-system.idlib-process-directory})
 add_subdirectory(library)
