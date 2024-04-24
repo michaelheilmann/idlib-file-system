@@ -1,7 +1,28 @@
+ /*
+  IdLib Process
+  Copyright (C) 2018-2024 Michael Heilmann. All rights reserved.
 
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+*/
 
 // TODO:
 // - Linux version not yet thread-safe.
+
+#define IDLIB_PROCESS_PRIVATE (1)
 #include "idlib/process.h"
 
 // fprintf, stderr
@@ -13,15 +34,19 @@
 // memcmp, memcpy
 #include <string.h>
 
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
-
-  #define WIN32_LEAN_AND_MEAN
-  #include <Windows.h>
+#if (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_LINUX)  || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_CYGWIN) || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_MACOS)
 
   // uint64_t
   #include <stdint.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+  #include <pthread.h>
+
+#elif IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
+  #define WIN32_LEAN_AND_MEAN
+  #include <Windows.h>
 
   // uint64_t
   #include <stdint.h>
@@ -48,7 +73,14 @@ struct idlib_process {
 
 static idlib_process* g = NULL;
 
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
+#if (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_LINUX)  || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_CYGWIN) || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_MACOS)
+
+  static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
+
+#elif IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
   // We do not lock recursively and inter-process is out of scope.
   static SRWLOCK g_lock = SRWLOCK_INIT;
@@ -69,7 +101,7 @@ static idlib_process* g = NULL;
       idlib_process* p = malloc(sizeof(idlib_process));
       if (!p) {
         ReleaseSRWLockExclusive(&g_lock);
-        return IDLIB_UNKNOWN_ERROR;
+        return IDLIB_ALLOCATION_FAILED;
       }
       p->entries = NULL;
       p->reference_count = 0;
@@ -77,7 +109,7 @@ static idlib_process* g = NULL;
     }
     if (UINT64_MAX == g->reference_count) {
       ReleaseSRWLockExclusive(&g_lock);
-      return IDLIB_UNKNOWN_ERROR; /*TODO: Use IDLIB_OVERFLOW.*/
+      return IDLIB_OVERFLOW;
     }
     g->reference_count++;
     *process = g;
@@ -96,11 +128,11 @@ static idlib_process* g = NULL;
       return IDLIB_LOCKED;
     }
     if (!g) {
-      return IDLIB_UNKNOWN_ERROR;
+      return IDLIB_OPERATION_INVALID;
     }
     if (0 == g->reference_count) {
       ReleaseSRWLockExclusive(&g_lock);
-      return IDLIB_UNKNOWN_ERROR; /*TODO: Use IDLIB_UNDERFLOW.*/
+      return IDLIB_UNDERFLOW;
     }
     if (0 == --g->reference_count) {
       free(g);
@@ -109,8 +141,6 @@ static idlib_process* g = NULL;
     ReleaseSRWLockExclusive(&g_lock);
     return IDLIB_SUCCESS;
   }
-
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
 #else
 
@@ -125,32 +155,41 @@ idlib_acquire_process
   )
 {
 
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+#if (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_LINUX)  || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_CYGWIN) || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_MACOS)
 
-  HMODULE module = GetModuleHandle(NULL);
-  if (!module) {
-    return IDLIB_UNKNOWN_ERROR;
+  if (pthread_mutex_lock(&g_lock)) {
+    return IDLIB_LOCK_FAILED;
   }
-  int (*f)(idlib_process**) = (int (*)(idlib_process**))GetProcAddress(module, "acquire_impl");
-  if (!f) {
-    return IDLIB_UNKNOWN_ERROR;
-  }
-  return (*f)(process);
-
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
-
+  
   if (!g) {
     g = malloc(sizeof(idlib_process));
     if (!g) {
-      return IDLIB_UNKNOWN_ERROR;
+      pthread_mutex_unlock(&g_lock);
+      return IDLIB_ALLOCATION_FAILED;
     }
     g->reference_count = 0;
   }
   if (UINT64_MAX == g->reference_count) {
-    return IDLIB_UNKNOWN_ERROR; /*TODO: Use IDLIB_OVERFLOW.*/
+    pthread_mutex_unlock(&g_lock);
+    return IDLIB_OVERFLOW;
   }
   g->reference_count++;
   *process = g;
+  pthread_mutex_unlock(&g_lock);
+
+#elif IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
+  HMODULE module = GetModuleHandle(NULL);
+  if (!module) {
+    return IDLIB_ENVIRONMENT_FAILED;
+  }
+  int (*f)(idlib_process**) = (int (*)(idlib_process**))GetProcAddress(module, "acquire_impl");
+  if (!f) {
+    return IDLIB_NOT_EXISTS;
+  }
+  return (*f)(process);
 
 #else
 
@@ -168,30 +207,38 @@ idlib_relinquish_process
   )
 {
 
-#if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+#if (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_LINUX)  || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_CYGWIN) || \
+    (IDLIB_OPERATING_SYSTEM == IDLIB_OPERATING_SYSTEM_MACOS)
 
-  HMODULE module = GetModuleHandle(NULL);
-  if (!module) {
-    return IDLIB_UNKNOWN_ERROR;
+  if (pthread_mutex_lock(&g_lock)) {
+    return IDLIB_LOCK_FAILED;
   }
-  int (*f)(idlib_process*) = (int (*)(idlib_process*))GetProcAddress(module, "relinquish_impl");
-  if (!f) {
-    return IDLIB_UNKNOWN_ERROR;
-  }
-  return (*f)(process);
-
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
-
   if (!g) {
-    return IDLIB_UNKNOWN_ERROR;
+    pthread_mutex_unlock(&g_lock);
+    return IDLIB_OPERATION_INVALID;
   }
   if (0 == g->reference_count) {
-    return IDLIB_UNKNOWN_ERROR; /*TODO: Use IDLIB_UNDERFLOW.*/
+    pthread_mutex_unlock(&g_lock);
+    return IDLIB_UNDERFLOW;
   }
   if (0 == --g->reference_count) {
     free(g);
     g = NULL;
   }
+  pthread_mutex_unlock(&g_lock);
+
+#elif IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
+
+  HMODULE module = GetModuleHandle(NULL);
+  if (!module) {
+    return IDLIB_ENVIRONMENT_FAILED;
+  }
+  int (*f)(idlib_process*) = (int (*)(idlib_process*))GetProcAddress(module, "relinquish_impl");
+  if (!f) {
+    return IDLIB_NOT_EXISTS;
+  }
+  return (*f)(process);
 
 #else
 

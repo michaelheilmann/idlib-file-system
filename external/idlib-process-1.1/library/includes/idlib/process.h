@@ -1,7 +1,30 @@
+/*
+  IdLib Process
+  Copyright (C) 2018-2024 Michael Heilmann. All rights reserved.
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+*/
+
 #if !defined(IDLIB_PROCESS_H_INCLUDED)
 #define IDLIB_PROCESS_H_INCLUDED
 
 #include "idlib/process/configure.h"
+#include "idlib/process/status.h"
+#include "idlib/process/mutex.h"
 
 #if IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
@@ -9,90 +32,6 @@
   #include <stddef.h>
 
 #endif
-
-/**
- * @brief Symbolic constant indicating success.
- * This constant is the only error constant guaranteed to evaluate to the value zero.
- */
-#define IDLIB_SUCCESS (0)
-
-/**
- * @brief Symbolic constant indicating an unknown error.
- * The error was raised, however, the reason is not known.
- */
-#define IDLIB_UNKNOWN_ERROR (1)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because an argument was not valid.
- */
-#define IDLIB_ARGUMENT_INVALID (2)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was aborted.
- */
-#define IDLIB_ABORTED (4)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was locked.
- */
-#define IDLIB_LOCKED (5)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was not locked.
- */
-#define IDLIB_NOT_LOCKED (6)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something locking failed.
- */
-#define IDLIB_LOCK_FAILED (7)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because an allocation failed.
- */
-#define IDLIB_ALLOCATION_FAILED (8)
-
-/** 
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was too big.
- */
-#define IDLIB_TOO_BIG (9)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something was too big.
- */
-#define IDLIB_TOO_SMALL (10)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because an overflow occurred.
- */
-#define IDLIB_OVERFOW (11)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because an underflow occurred.
- */
-#define IDLIB_UNDERFLOW (12)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something exists.
- */
-#define IDLIB_EXISTS (13)
-
-/**
- * @brief Symbolic constant indicating an error.
- * The error was raised because something not exists.
- */
-#define IDLIB_NOT_EXISTS (14)
 
 /**
  * @since 1.0
