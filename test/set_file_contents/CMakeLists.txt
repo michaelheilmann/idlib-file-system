@@ -1,5 +1,5 @@
 #
-# IdLib Math
+# IdLib File System
 # Copyright (C) 2018-2024 Michael Heilmann. All rights reserved.
 #
 # This software is provided 'as-is', without any express or implied
@@ -21,7 +21,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-include(${idlib-file-system.idlib-process-directory}/cmake/all.cmake)
+include(${idlib-file-system.idlib-process-source-dir}/cmake/all.cmake)
 
 set(name idlib-file-system-test-set-file-contents)
 begin_executable()
