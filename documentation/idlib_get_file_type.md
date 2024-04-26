@@ -11,9 +11,6 @@ idlib_get_file_type
 ```
 
 ## Description
-Get the type of a file.
-
-## Description
 This function gets the type of a file.
 
 If this function succeeds it returns `IDLIB_SUCCESS` and `*fileState` was assigned a `Nucleus_FileState` value.
