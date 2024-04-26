@@ -19,18 +19,12 @@
 # 3. This notice may not be removed or altered from any source distribution.
 #
 
-# Macro to detect a multi target generator is used.
-# Set ${target}.is_multi_target_generator to "YES" (a multi target generator is used) or "NO" (a single target generator is used).
-# @param target The target.
-# @todo Use "https://cmake.org/cmake/help/latest/prop_gbl/GENERATOR_IS_MULTI_CONFIG.html".
-macro(detect_multi_target_generator target)
-  if (NOT DEFINED ${target}.compiler_c)
-    message(FATAL_ERROR "please execute detect_compiler before detect_multi_target_generator")
-  endif()
-  if (${target}.compiler_c STREQUAL ${target}.compiler_c_msvc)
-    set(${target}.is_multi_target_generator YES)
-  else()
-    set(${target}.is_multi_target_generator NO)
-  endif()
-  message(STATUS " - ${target} multi-target generator: ${${target}.is_multi_target_generator}")
-endmacro(detect_multi_target_generator)
+cmake_minimum_required(VERSION 3.20)
+
+project(idlib-process LANGUAGES C)
+
+set(idlib-process-cmake-files-dir "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+add_subdirectory(library)
+
+enable_testing()

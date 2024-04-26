@@ -19,18 +19,8 @@
 # 3. This notice may not be removed or altered from any source distribution.
 #
 
-# Macro to detect a multi target generator is used.
-# Set ${target}.is_multi_target_generator to "YES" (a multi target generator is used) or "NO" (a single target generator is used).
+# Macro to define ${target}.sizeof_void_pointer.
 # @param target The target.
-# @todo Use "https://cmake.org/cmake/help/latest/prop_gbl/GENERATOR_IS_MULTI_CONFIG.html".
-macro(detect_multi_target_generator target)
-  if (NOT DEFINED ${target}.compiler_c)
-    message(FATAL_ERROR "please execute detect_compiler before detect_multi_target_generator")
-  endif()
-  if (${target}.compiler_c STREQUAL ${target}.compiler_c_msvc)
-    set(${target}.is_multi_target_generator YES)
-  else()
-    set(${target}.is_multi_target_generator NO)
-  endif()
-  message(STATUS " - ${target} multi-target generator: ${${target}.is_multi_target_generator}")
-endmacro(detect_multi_target_generator)
+macro(idlib_detect_void_pointer_size target)
+  set(${target}.sizeof_void_pointer ${CMAKE_SIZEOF_VOID_P})
+endmacro()
