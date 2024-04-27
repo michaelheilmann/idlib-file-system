@@ -37,14 +37,14 @@ if (NOT idlib-process.tag)
   set(idlib-process.tag 1.2)
 endif()
 
-set(idlib-process.source-dir CACHE STRING "Path to the IdLib Process source directory")
+set(idlib-process.source-dir CACHE STRING "IdLib Process: Path to the source directory")
 if (NOT idlib-process.source-dir)
-  set(idlib-process.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.1-src")
+  set(idlib-process.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.2-src")
 endif()
 
-set(idlib-process.binary-dir CACHE STRING "Path to the IdLib Process build directory")
+set(idlib-process.binary-dir CACHE STRING "IdLib Process: Path to the build directory")
 if (NOT idlib-process.binary-dir)
-  set(idlib-process.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.1-bld")
+  set(idlib-process.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.2-bld")
 endif()
 
 FetchContent_Declare(idlib-process
