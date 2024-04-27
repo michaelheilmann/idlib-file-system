@@ -21,7 +21,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-include(${idlib-file-system.idlib-process-source-dir}/cmake/all.cmake)
+include(${idlib-process.source-dir}/cmake/all.cmake)
 
 set(name idlib-file-system-test-set-file-contents)
 begin_executable()

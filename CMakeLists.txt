@@ -23,21 +23,39 @@ cmake_minimum_required(VERSION 3.20)
 
 project(idlib-file-system LANGUAGES C)
 
-if (NOT TARGET idlib-process)
+include(FetchContent)
 
-  set(idlib-file-system.idlib-process-source-dir CACHE STRING "Path to the IdLib Process Library")
-  if (NOT idlib-file-system.idlib-process-source-dir)
-    set(idlib-file-system.idlib-process-source-dir "${CMAKE_CURRENT_SOURCE_DIR}/external/idlib-process-1.1")
-  endif()
+#######################################################################################################################
 
-  set(idlib-file-system.idlib-process-binary-dir CACHE STRING "Path to the IdLib Process Library")
-  if (NOT idlib-file-system.idlib-process-binary-dir)
-    set(idlib-file-system.idlib-process-binary-dir "${CMAKE_CURRENT_BINARY_DIR}/external/idlib-process-1.1")
-  endif()
-
-  add_subdirectory(${idlib-file-system.idlib-process-source-dir} ${idlib-file-system.idlib-process-binary-dir})
-
+set(idlib-process.repository CACHE STRING "IdLib Process: The Git repository to check out")
+if (NOT idlib-process.repository)
+  set(idlib-process.repository https://github.com/michaelheilmann/idlib-process.git)
 endif()
+
+set(idlib-process.tag CACHE STRING "IdLib Process: The Git tag to check out")
+if (NOT idlib-process.tag)
+  set(idlib-process.tag 1.2)
+endif()
+
+set(idlib-process.source-dir CACHE STRING "Path to the IdLib Process source directory")
+if (NOT idlib-process.source-dir)
+  set(idlib-process.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.1-src")
+endif()
+
+set(idlib-process.binary-dir CACHE STRING "Path to the IdLib Process build directory")
+if (NOT idlib-process.binary-dir)
+  set(idlib-process.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.1-bld")
+endif()
+
+FetchContent_Declare(idlib-process
+                    GIT_REPOSITORY ${idlib-process.repository}
+                    GIT_TAG ${idlib-process.tag}
+                    SOURCE_DIR ${idlib-process.source-dir}
+                    BINARY_DIR ${idlib-process.binary-dir})
+
+FetchContent_MakeAvailable(idlib-process)
+
+#######################################################################################################################
 
 add_subdirectory(library)
 
