@@ -21,7 +21,8 @@
 
 #include "idlib/file_system/file_mapping.h"
 
-#if IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#if IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+    IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
 // For mmap.
 #include <sys/mman.h>
@@ -96,7 +97,8 @@ idlib_file_mapping_initialize_write
     return IDLIB_ENVIRONMENT_FAILED;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+      IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // Extend the file to the size of the contents if necessary.
   if (-1 == lseek(idlib_file_handle_get_backend(file_mapping->file_handle), number_of_bytes - 1, SEEK_SET)) {
@@ -203,7 +205,8 @@ idlib_file_mapping_initialize_read
     return IDLIB_ENVIRONMENT_FAILED;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+      IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // Open the mapping.
   file_mapping->bytes = mmap(NULL, file_mapping->number_of_bytes, PROT_READ, MAP_PRIVATE, idlib_file_handle_get_backend(file_mapping->file_handle), 0);
@@ -245,7 +248,8 @@ idlib_file_mapping_uninitialize
     file_mapping->hFileMapping = NULL;
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+      IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // Synchronize if we have a file handle (that is, when the number of Bytes is greater than 0) and if we are in write mode.
   if (file_mapping->file_handle) {

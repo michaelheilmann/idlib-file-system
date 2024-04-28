@@ -30,7 +30,8 @@
   #define WIN32_LEAN_AND_MEAN
   #include <Windows.h>
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+      IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   // For errno.
   #include <errno.h>
@@ -141,7 +142,8 @@ idlib_delete_file
     return idlib_delete_regular_file(path_name);
   }
 
-#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
+#elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
+      IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
   if (!strcmp(path_name, "")) {
     // Because ENOENT is not only returned when the file is not found but also when path_name is empty.
