@@ -30,21 +30,15 @@
 // size_t
 #include <stddef.h>
 
-typedef bool (idlib_enumerate_files_callback)(void *context, void const* bytes, size_t number_of_bytes);
+typedef void idlib_enumerate_files_callback_context;
+typedef bool (idlib_enumerate_files_callback_function)(idlib_enumerate_files_callback_context*context, void const* bytes, size_t number_of_bytes);
 
-/**
- * @brief Enumerate the files in a directory file.
- * @param path_name The pathname of the directory file.
- * @param callback The callback to invoke.
- * @remarks The file denoted by @a path_name must exist and must be a directory file.
- * @return #IDLIB_SUCCESS on success. A non-zero value on failure.
- */
 int
 idlib_enumerate_files
   (
-    char const* path_name,
-    void* context,
-    idlib_enumerate_files_callback* callback,
+    char const* path,
+    idlib_enumerate_files_callback_context* callback_context,
+    idlib_enumerate_files_callback_function* callback_function,
     bool regular_files,
     bool directory_files
   );

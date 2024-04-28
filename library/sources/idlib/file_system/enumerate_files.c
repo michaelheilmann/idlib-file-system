@@ -62,14 +62,14 @@
 int
 idlib_enumerate_files
   (
-    char const* path_name,
-		void* context,
-    idlib_enumerate_files_callback* callback,
+    char const* path,
+		idlib_enumerate_files_callback_context* callback_context,
+    idlib_enumerate_files_callback_function* callback_function,
 		bool regular_files,
 		bool directory_files
   )
 {
-  if (!path_name || !callback) {
+  if (!path || !callback_function) {
     return IDLIB_ARGUMENT_INVALID;
   }
 
@@ -77,7 +77,7 @@ idlib_enumerate_files
 
 	WIN32_FIND_DATA ffd;
 	TCHAR szDir[MAX_PATH];
-	StringCchCopy(szDir, MAX_PATH, path_name);
+	StringCchCopy(szDir, MAX_PATH, path);
 	StringCchCat(szDir, MAX_PATH, TEXT(IDLIB_DIRECTORY_SEPARATOR "*"));
 	HANDLE hFind = INVALID_HANDLE_VALUE;
 	hFind = FindFirstFile(szDir, &ffd);
@@ -88,8 +88,10 @@ idlib_enumerate_files
 		if (!strcmp(ffd.cFileName, ".") || !strcmp(ffd.cFileName, "..")) {
 			continue;
 		}
-		if (((ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && directory_files) || ((ffd.dwFileAttributes & FILE_ATTRIBUTE_NORMAL) && regular_files)) {
-			if (!callback(context, ffd.cFileName, strlen(ffd.cFileName))) {
+		bool is_directory_file = ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY;
+		bool is_regular_file = !is_directory_file;
+		if ((is_directory_file && directory_files) || (is_regular_file && regular_files)) {
+			if (!callback_function(callback_context, ffd.cFileName, strlen(ffd.cFileName))) {
 				FindClose(hFind);
 				hFind = INVALID_HANDLE_VALUE;
 				return IDLIB_ABORTED;
@@ -104,7 +106,7 @@ idlib_enumerate_files
 
 	DIR* dir;
 	struct dirent* ent;
-	dir = opendir(path_name);
+	dir = opendir(path);
 	if (!dir) {
 		return IDLIB_ENVIRONMENT_FAILED;
 	}
@@ -146,7 +148,7 @@ idlib_enumerate_files
 			continue;
 		}
 		if ((ent->d_type == DT_DIR && directory_files)&& (ent->d_type == DT_REG && regular_files)) {
-			if (!callback(context, ent->d_name, strlen(ent->d_name))) {
+			if (!callback_function(callback_context, ent->d_name, strlen(ent->d_name))) {
 				closedir(dir);
 				dir = NULL;
 				return IDLIB_ABORTED;

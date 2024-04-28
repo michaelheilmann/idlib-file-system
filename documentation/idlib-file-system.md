@@ -4,6 +4,7 @@ Welcome to *IdLib File System*.
 The library id designed as a *backing* library to be integrated into other C programs.
 
 - [idlib_create_directory](idlib_create_directory.md)
+- [idlib_enumerate_files](idlib_enumerate_files.md)
 - [idlib_existing_file_policy](idlib_existing_file_policy.md)
 - [idlib_file_access_mode](idlib_file_access_mode.md)
 - [idlib_file_handle](idlib_file_handle.md)
