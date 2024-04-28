@@ -22,7 +22,7 @@
 #include "idlib/file_system/set_file_contents.h"
 
 #include "idlib/file_system/file_mapping.h"
-#include "idlib/file_system/errors.h"
+#include "idlib/file_system/status.h"
 
 // For memcpy.
 #include <string.h>

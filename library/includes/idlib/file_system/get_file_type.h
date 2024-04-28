@@ -23,7 +23,7 @@
 #define IDLIB_FILE_SYSTEM_GET_FILE_TYPE_H_INCLUDED
 
 #include "idlib/file_system/file_type.h"
-#include "idlib/file_system/errors.h"
+#include "idlib/file_system/status.h"
 
 int
 idlib_get_file_type

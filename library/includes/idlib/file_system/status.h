@@ -19,4 +19,21 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "idlib/file_system/errors.h"
+#if !defined(IDLIB_FILE_SYSTEM_STATUS_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_STATUS_H_INCLUDED
+
+#include "idlib/process.h"
+
+/**
+ * @brief Symbolic constant indicating an error.
+ * The error was raised because a file was not found.
+ */
+#define IDLIB_FILE_NOT_FOUND (20)
+
+/**
+ * @brief Symbolic constant indicating an error.
+ * The error was raised because a directory was not empty.
+ */
+#define IDLIB_DIRECTORY_NOT_EMPTY (21)
+
+#endif // IDLIB_FILE_SYSTEM_STATUS_H_INCLUDED

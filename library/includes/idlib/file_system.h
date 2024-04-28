@@ -26,7 +26,7 @@
 #include "idlib/file_system/create_directory_file.h"
 #include "idlib/file_system/delete_file.h"
 #include "idlib/file_system/enumerate_files.h"
-#include "idlib/file_system/errors.h"
+#include "idlib/file_system/status.h"
 #include "idlib/file_system/existing_file_policy.h"
 #include "idlib/file_system/non_existing_file_policy.h"
 #include "idlib/file_system/file_access_mode.h"
