@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_HANDLE_H_INCLUDED)
-#define IDLIB_FILE_HANDLE_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_FILE_HANDLE_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_FILE_HANDLE_H_INCLUDED
 
 #include "idlib/file_system.h"
 
@@ -84,4 +84,4 @@ idlib_file_handle_get_file_access_mode
     idlib_file_handle* file_handle
   );
 
-#endif // IDLIB_FILE_HANDLE_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_FILE_HANDLE_H_INCLUDED

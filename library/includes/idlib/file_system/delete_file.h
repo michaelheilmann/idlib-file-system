@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_DELETE_FILE_H_INCLUDED)
-#define IDLIB_DELETE_FILE_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_DELETE_FILE_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_DELETE_FILE_H_INCLUDED
 
 /**
  * @brief Delete a file.
@@ -35,4 +35,4 @@ idlib_delete_file
     char const* path_name
   );
 
-#endif // IDLIB_DELETE_FILE_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_DELETE_FILE_H_INCLUDED

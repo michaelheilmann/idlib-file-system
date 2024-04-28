@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_ACCESS_MODE_H_INCLUDED)
-#define IDLIB_FILE_ACCESS_MODE_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_FILE_ACCESS_MODE_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_FILE_ACCESS_MODE_H_INCLUDED
 
 typedef enum idlib_file_access_mode {
 
@@ -34,4 +34,4 @@ typedef enum idlib_file_access_mode {
 
 } idlib_file_access_mode;
 
-#endif // IDLIB_FILE_ACCESS_MODE_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_FILE_ACCESS_MODE_H_INCLUDED

@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_NON_EXISTING_FILE_POLICY_H_INCLUDED)
-#define IDLIB_NON_EXISTING_FILE_POLICY_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_NON_EXISTING_FILE_POLICY_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_NON_EXISTING_FILE_POLICY_H_INCLUDED
 
 typedef enum idlib_non_existing_file_policy {
 
@@ -30,4 +30,4 @@ typedef enum idlib_non_existing_file_policy {
 
 } idlib_non_existing_file_policy;
 
-#endif // IDLIB_NON_EXISTING_FILE_POLICY_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_NON_EXISTING_FILE_POLICY_H_INCLUDED

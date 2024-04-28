@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_MAPPING_H_INCLUDED)
-#define IDLIB_FILE_MAPPING_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_FILE_MAPPING_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_FILE_MAPPING_H_INCLUDED
 
 #include "idlib/file_system/file_handle.h"
 
@@ -68,4 +68,4 @@ idlib_file_mapping_uninitialize
     idlib_file_mapping* file_mapping
   );
 
-#endif // IDLIB_FILE_MAPPING_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_FILE_MAPPING_H_INCLUDED

@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_ENUMERATE_FILES_H_INCLUDED)
-#define IDLIB_ENUMERATE_FILES_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_ENUMERATE_FILES_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_ENUMERATE_FILES_H_INCLUDED
 
 #include "idlib/file_system/configure.h"
 
@@ -49,4 +49,4 @@ idlib_enumerate_files
     bool directory_files
   );
 
-#endif // IDLIB_ENUMERATE_FILES_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_ENUMERATE_FILES_H_INCLUDED

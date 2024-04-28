@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_TYPE_H_INCLUDED)
-#define IDLIB_FILE_TYPE_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_FILE_TYPE_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_FILE_TYPE_H_INCLUDED
 
 #include "idlib/file_system/configure.h"
 
@@ -34,4 +34,4 @@ typedef enum idlib_file_type {
 
 } idlib_file_type;
 
-#endif // IDLIB_FILE_TYPE_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_FILE_TYPE_H_INCLUDED

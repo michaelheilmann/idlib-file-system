@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_GET_FILE_CONTENTS_H_INCLUDED)
-#define IDLIB_GET_FILE_CONTENTS_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_GET_FILE_CONTENTS_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_GET_FILE_CONTENTS_H_INCLUDED
 
 // size_t
 #include <stddef.h>
@@ -46,4 +46,4 @@ idlib_get_file_contents_memory_mapped
     idlib_get_file_contents_callback* callback
   );
 
-#endif // IDLIB_GET_FILE_CONTENTS_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_GET_FILE_CONTENTS_H_INCLUDED

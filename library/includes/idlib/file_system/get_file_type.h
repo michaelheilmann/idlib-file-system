@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_GET_FILE_TYPE_H_INCLUDED)
-#define IDLIB_GET_FILE_TYPE_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_GET_FILE_TYPE_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_GET_FILE_TYPE_H_INCLUDED
 
 #include "idlib/file_system/file_type.h"
 #include "idlib/file_system/errors.h"
@@ -32,4 +32,4 @@ idlib_get_file_type
     idlib_file_type* file_type
   );
 
-#endif // IDLIB_GET_FILE_TYPE_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_GET_FILE_TYPE_H_INCLUDED

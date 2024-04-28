@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_CREATE_DIRECTORY_H_INCLUDED)
-#define IDLIB_CREATE_DIRECTORY_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_CREATE_DIRECTORY_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_CREATE_DIRECTORY_H_INCLUDED
 
 /**
  * @brief Create a directory file.
@@ -34,4 +34,4 @@ idlib_create_directory_file
     char const* path_name
   );
 
-#endif // IDLIB_CREATE_DIRECTORY_H_INCLUDED
+#endif // IDLIB_FILE_SYSTEM_CREATE_DIRECTORY_H_INCLUDED
