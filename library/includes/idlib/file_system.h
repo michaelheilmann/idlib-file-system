@@ -26,13 +26,13 @@
 #include "idlib/file_system/create_directory_file.h"
 #include "idlib/file_system/delete_file.h"
 #include "idlib/file_system/enumerate_files.h"
-#include "idlib/file_system/status.h"
 #include "idlib/file_system/existing_file_policy.h"
-#include "idlib/file_system/non_existing_file_policy.h"
 #include "idlib/file_system/file_access_mode.h"
 #include "idlib/file_system/get_file_contents.h"
 #include "idlib/file_system/get_file_type.h"
 #include "idlib/file_system/get_working_directory.h"
+#include "idlib/file_system/non_existing_file_policy.h"
 #include "idlib/file_system/set_file_contents.h"
+#include "idlib/file_system/status.h"
 
 #endif // IDLIB_FILE_SYSTEM_H_INCLUDED
