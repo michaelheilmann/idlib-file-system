@@ -15,4 +15,5 @@ The library id designed as a *backing* library to be integrated into other C pro
 - [idlib_get_file_contents](idlib_get_file_contents.md)
 - [idlib_get_file_contents_callback](idlib_get_file_contents_callback.md)
 - [idlib_get_file_type](idlib_get_file_type.md)
+- [idlib_get_working_directory](idlib_get_working_directory.md)
 - [idlib_set_file_contents](idlib_set_file_contents.md)

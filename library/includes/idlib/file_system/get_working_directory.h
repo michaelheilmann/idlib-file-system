@@ -19,20 +19,24 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !defined(IDLIB_FILE_SYSTEM_H_INCLUDED)
-#define IDLIB_FILE_SYSTEM_H_INCLUDED
+#if !defined(IDLIB_FILE_SYSTEM_GET_WORKING_DIRECTORY_H_INCLUDED)
+#define IDLIB_FILE_SYSTEM_GET_WORKING_DIRECTORY_H_INCLUDED
 
 #include "idlib/file_system/configure.h"
-#include "idlib/file_system/create_directory_file.h"
-#include "idlib/file_system/delete_file.h"
-#include "idlib/file_system/enumerate_files.h"
-#include "idlib/file_system/status.h"
-#include "idlib/file_system/existing_file_policy.h"
-#include "idlib/file_system/non_existing_file_policy.h"
-#include "idlib/file_system/file_access_mode.h"
-#include "idlib/file_system/get_file_contents.h"
-#include "idlib/file_system/get_file_type.h"
-#include "idlib/file_system/get_working_directory.h"
-#include "idlib/file_system/set_file_contents.h"
 
-#endif // IDLIB_FILE_SYSTEM_H_INCLUDED
+// bool
+#include <stdbool.h>
+
+// size_t
+#include <stddef.h>
+
+typedef bool (idlib_get_working_directory_callback)(void* context, void const* bytes, size_t number_of_bytes);
+
+int
+idlib_get_working_directory
+  (
+    void* context,
+    idlib_get_working_directory_callback* callback
+  );
+
+#endif // IDLIB_FILE_SYSTEM_GET_WORKING_DIRECTORY_H_INCLUDED
