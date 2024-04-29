@@ -57,21 +57,23 @@ idlib_get_working_directory
   }
 #if IDLIB_OPERATING_SYSTEM_WINDOWS == IDLIB_OPERATING_SYSTEM
 
+  // n = number of characters (required) including the zero terminator.
   DWORD n = (DWORD)GetCurrentDirectory(0, NULL);
-  if (!n || n > SIZE_MAX - 1) {
+  if (!n || n > SIZE_MAX) {
     return IDLIB_ENVIRONMENT_FAILED;
   }
-  char* p = malloc((size_t)n + 1);
+  char* p = malloc((size_t)n);
   if (!p) {
     return IDLIB_ALLOCATION_FAILED;
   }
-  DWORD m = GetCurrentDirectory(n + 1, p);
-  if (!m || m != n) {
+  // m = number of characters (written) excluding the zero terminator.
+  DWORD m = GetCurrentDirectory(n, p);
+  if (!m || m != n - 1) {
     free(p);
     p = NULL;
     return IDLIB_ENVIRONMENT_FAILED;
   }
-  if (!(*callback)(context, p, n)) {
+  if (!(*callback)(context, p, m)) {
     free(p);
     p = NULL;
     return IDLIB_ABORTED;
