@@ -31,7 +31,11 @@
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
       IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
+  #define _GNU_SOURCE
   #include <unistd.h>
+
+  // strlen
+  #include <string.h>
 
 #else
 
@@ -88,7 +92,7 @@ idlib_get_working_directory
   if (!p) {
     return IDLIB_ENVIRONMENT_FAILED;
   }
-  if (!(*callback)(context, p, n)) {
+  if (!(*callback)(context, p, strlen(p))) {
     free(p);
     p = NULL;
     return IDLIB_ABORTED;
