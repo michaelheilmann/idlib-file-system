@@ -17,39 +17,39 @@ endif()
 
 set(idlib-process.tag CACHE STRING "IdLib Process: The Git tag to check out")
 if (NOT idlib-process.tag)
-  set(idlib-process.tag 1.2)
+  set(idlib-process.tag 1.4)
 endif()
 
 set(idlib-process.source-dir CACHE STRING "IdLib Process: Path to the source directory")
 if (NOT idlib-process.source-dir)
-  set(idlib-process.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.2-src")
+  set(idlib-process.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.4-src")
 endif()
 
 set(idlib-process.binary-dir CACHE STRING "IdLib Process: Path to the build directory")
 if (NOT idlib-process.binary-dir)
-  set(idlib-process.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.2-bld")
+  set(idlib-process.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-process-1.4-bld")
 endif()
                     
 #######################################################################################################################
 
 set(idlib-file-system.repository CACHE STRING "IdLib File System: The Git repository to check out")
-if (NOT idlib-file-systme.repository)
+if (NOT idlib-file-system.repository)
   set(idlib-file-system.repository https://github.com/michaelheilmann/idlib-file-system.git)
 endif()
 
 set(idlib-file-system.tag CACHE STRING "IdLib File System: The Git tag to check out")
 if (NOT idlib-file-system.tag)
-  set(idlib-file-system.tag 1.4)
+  set(idlib-file-system.tag 1.7)
 endif()
 
-set(idlib-fie-system.source-dir CACHE STRING "IdLib File System: Path to the source directory")
+set(idlib-file-system.source-dir CACHE STRING "IdLib File System: Path to the source directory")
 if (NOT idlib-file-system.source-dir)
-  set(idlib-file-system.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-file-system-1.4-src")
+  set(idlib-file-system.source-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-file-system-1.7-src")
 endif()
 
 set(idlib-file-system.binary-dir CACHE STRING "IdLib File System: Path to the build directory")
 if (NOT idlib-file-system.binary-dir)
-  set(idlib-file-system.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-file-system-1.4-bld")
+  set(idlib-file-system.binary-dir "${CMAKE_CURRENT_BINARY_DIR}/idlib-file-system-1.7-bld")
 endif()
 
 #######################################################################################################################
@@ -66,11 +66,11 @@ Now simply add
 ```
 FetchContent_MakeAvailable(idlib-file-system)
 ```
-And you can use *IdLib File System* linking the library target `idlib-file-system` to a target `<target>`
+And you can use *IdLib File System* by linking the library target `idlib-file-system` to a target `<target>`
 ```
 target_link_libraries(my-target idlib-file-system)
 ```
-and by adding the include-directove  
+and by adding the include-directive  
 ```
 #include "idlib/file_system.h"
 ```
