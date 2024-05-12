@@ -68,9 +68,9 @@ FetchContent_MakeAvailable(idlib-file-system)
 ```
 And you can use *IdLib File System* by linking the library target `idlib-file-system` to a target `<target>`
 ```
-target_link_libraries(my-target idlib-file-system)
+target_link_libraries(<target> idlib-file-system)
 ```
-and by adding the include-directive  
+and by adding the include directive  
 ```
 #include "idlib/file_system.h"
 ```
