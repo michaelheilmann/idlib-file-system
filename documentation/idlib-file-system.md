@@ -1,6 +1,6 @@
 # IdLib File System
 Welcome to *IdLib File System*.
-*IdLib File System* provides cross-platform (Windows and Linux) file system functionality for embedding into C programs.
+*IdLib File System* provides functionality related to file systems and their components, such as paths, regular files, and directory files. 
 The library id designed as a *backing* library to be integrated into other C programs.
 
 - [idlib_create_directory](idlib_create_directory.md)
