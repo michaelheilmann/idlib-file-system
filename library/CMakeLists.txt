@@ -111,6 +111,11 @@ list(APPEND ${name}.source_files "${CMAKE_CURRENT_SOURCE_DIR}/sources/idlib/file
 
 end_library()
 
+# We must define _GNU_SOURCE under Linux.
+if (${${name}.operating_system} STREQUAL ${${name}.operating_system_linux})
+  add_compile_definitions("_GNU_SOURCE")
+endif()
+
 target_link_libraries(${name} idlib-process)
 
 source_group(TREE ${CMAKE_CURRENT_BINARY_DIR} FILES ${${name}.configuration_files})
@@ -118,6 +123,6 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${${name}.header_files})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${${name}.source_files})
 
 # We must link libm under Linux.
-if (${${name}.operating_system_id} EQUAL ${${name}.operating_system_id_linux})
+if (${${name}.operating_system} STREQUAL ${${name}.operating_system_linux})
   target_link_libraries(${name} m)
 endif()

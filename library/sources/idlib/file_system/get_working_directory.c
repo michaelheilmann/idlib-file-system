@@ -31,7 +31,7 @@
 #elif IDLIB_OPERATING_SYSTEM_LINUX == IDLIB_OPERATING_SYSTEM || \
       IDLIB_OPERATING_SYSTEM_CYGWIN == IDLIB_OPERATING_SYSTEM
 
-  #define _GNU_SOURCE
+  // get_current_dir_name
   #include <unistd.h>
 
   // strlen
