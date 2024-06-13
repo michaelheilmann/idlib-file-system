@@ -147,7 +147,7 @@ idlib_enumerate_files
 		if (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")) {
 			continue;
 		}
-		if ((ent->d_type == DT_DIR && directory_files)&& (ent->d_type == DT_REG && regular_files)) {
+		if ((ent->d_type == DT_DIR && directory_files) || (ent->d_type == DT_REG && regular_files)) {
 			if (!callback_function(callback_context, ent->d_name, strlen(ent->d_name))) {
 				closedir(dir);
 				dir = NULL;
